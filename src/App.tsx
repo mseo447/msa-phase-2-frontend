@@ -18,6 +18,8 @@ function App() {
   const [countryRecovered, setCountryRecovered] = useState<Number | any>("");
   const [countryDeaths, setCountryDeaths] = useState<Number | any>("");
 
+  const [searchedName, setSearchedName] = useState<String | any>("");
+
   const COVID_BASE_URL = "https://covid-api.mmediagroup.fr/v1";
 
   return (
@@ -56,7 +58,7 @@ function App() {
         ) : countryCases != "" ? (
           <div>
               <h3>
-                {countryName}
+                {searchedName}
               </h3>
               <p>
                 Confirmed Cases: {countryCases}
@@ -86,6 +88,9 @@ function App() {
       setCountryCases(res.data["All"]["confirmed"]);
       setCountryRecovered(res.data["All"]["recovered"]);
       setCountryDeaths(res.data["All"]["deaths"]);
+      
+      setSearchedName(capitalisedName);
+
     })
     .catch(() => {
       setCountryCases(undefined);
@@ -93,7 +98,7 @@ function App() {
       setCountryDeaths(undefined);
     });
 
-    console.log(countryCases);
+    
   }
 
   function capitalise() {
